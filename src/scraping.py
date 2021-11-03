@@ -3,7 +3,7 @@
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import chromedriver_binary # installed through pip in Dockerfile. Implicitly used when instantiate webdriver
+import chromedriver_binary # installed with pip in Dockerfile. Implicitly used when instantiate webdriver
 import json
 import time
 from jinja2 import Template
