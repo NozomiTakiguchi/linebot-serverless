@@ -1,10 +1,10 @@
 # https://qiita.com/hedgehoCrow/items/2fd56ebea463e7fc0f5b
-
+import yaml
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
-import yaml
 from yaml.loader import SafeLoader
+from datetime import datetime
 
 dotenv_path = join(dirname(__file__), os.pardir, '.env')
 load_dotenv(dotenv_path)
@@ -12,6 +12,8 @@ load_dotenv(dotenv_path)
 config_path = join(dirname(__file__), 'config.yaml')
 with open(config_path) as f:
     CONFIG = yaml.load(f, Loader=SafeLoader)
+
+TODAY = datetime.today().strftime('%Y-%m-%d')
 
 CHROME_OPTIONS = [
     '--headless',

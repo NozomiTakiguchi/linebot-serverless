@@ -1,18 +1,17 @@
 # https://qiita.com/hoto17296/items/c2abfb60d3c6a77f065d
 # https://xp-cloud.jp/blog/2020/01/22/6637/
-
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import chromedriver_binary # installed with pip in Dockerfile. Implicitly used when instantiate webdriver
+import chromedriver_binary # installed through pip in Dockerfile. Implicitly used when instantiate webdriver
 import json
 import time
 from jinja2 import Template
-
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 from settings import (
     CONFIG,
     CHROME_OPTIONS,
     LINEBOT_CAROUSEL_TEMPLATE,
-    BASE_URL
+    BASE_URL,
+    TODAY
     )
 
 
@@ -21,7 +20,7 @@ for option in CHROME_OPTIONS:
     INNER_OPTIONS.add_argument(option)
 
 class Reservator():
-    def __init__(self, chrome_options, region='kanto', genre='futsal', area_id=2, exec_date='2021-11-04') -> None:
+    def __init__(self, chrome_options, region='kanto', genre='futsal', area_id=2, exec_date=TODAY) -> None:
         self.base_url = BASE_URL.format(region, genre, area_id, exec_date)
         self.area = CONFIG['area'][area_id]
         self.driver = webdriver.Chrome(options=chrome_options)
