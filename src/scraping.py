@@ -14,7 +14,6 @@ from settings import (
     TODAY
     )
 
-
 INNER_OPTIONS = webdriver.ChromeOptions()
 for option in CHROME_OPTIONS:
     INNER_OPTIONS.add_argument(option)
