@@ -1,5 +1,4 @@
 ## usage
-* ngrok で 多分 Endpoins > start Tunnel を押す
 * ngrok.cmd を実行
 * ngrok http ${port} を実行
 * 表示される https パスを Line の MessagingAPI WebHookURL にペーストする
@@ -24,3 +23,11 @@
 * github の secret に iam で確認できる .pub の ID と sec key を設定
 * Codecommit リポジトリを作成 (後々 CDK でパイプライン作成したい)
 * .github/workflows/mirroring.yml 作成
+
+## AWS SAM CLI の実行
+* sam init / sam build 実行
+* `sam local start-lambda --container-host host.docker.internal` で localhost:3001 にエンドポイントが立つ
+* terminal をもう一つ開いて、 `aws lambda invoke --function-name SomeFunctionName --endpoint http://localhost:3001/ output.txt`
+
+## linebot からのリクエスト
+* ngrok の利用

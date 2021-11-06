@@ -8,12 +8,13 @@ from linebot.models import MessageEvent, TextMessage, TemplateSendMessage, Carou
 linebot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
 
-# Docker in Docker で AWS SAM CLI がうまく扱えなかったので、ひとまずローカルに http server 立ててみた (本当は簡単に AWS Lambda に移行できるようにしたい)
 class SimpleLocalHttpHandler(http_server.BaseHTTPRequestHandler):
     def do_POST(self):
-        signature = self.headers.get('X-Line-Signature')
+        # signature = get_xline_signature(self.headers)
+        signature = self.headers.get("X-Line-Signature")
         content_len  = int(self.headers.get("content-length"))
-        req_body = self.rfile.read(content_len).decode("utf-8")
+        # req_body = self.rfile.read(content_len).decode("utf-8")
+        req_body = self.rfile.read(int(self.headers.get("content-length"))).decode("utf-8")
 
         try:
             handler.handle(req_body, signature)
@@ -24,8 +25,48 @@ class SimpleLocalHttpHandler(http_server.BaseHTTPRequestHandler):
         self.end_headers()
         self.send_response(200)
     
+def get_xline_signature(headers):
+    def is_prod(signaure):
+        # sam local invoke を識別する何か
+
+        # None の場合、テスト以外の何かしらのエラー
+        if not signature:
+            return True
+        
+        if signature == '':
+            return False
+
+        return True
+
+    signature = None
+    for k in headers:
+        if k in ['X-Line-Signature', 'x-line-signature']:
+            signature = headers[k]
+    # flag と signature そのものを typle で返すようにするのはアリ？
+    if is_prod(signature):
+        pass
+    return signature
+
+#aws lambda
+def lambda_handler(event, context):
+    signature = get_xline_signature(event['headers'])
+    req_body = event['body']
+
+    # try:
+    #     handler.handle(req_body, signature)
+    # except InvalidSignatureError as e:
+    #     print(e)
+    return {
+        "isBase64Encoded": False,
+        "statusCode": 200,
+        "headers": {},
+        "body": "Success"
+    }
+
 @handler.add(MessageEvent, TextMessage)
 def handle_message(body):
+    # ↓ 関数化する. x-line-signature がサンプルの場合は sdk 使えなさそうなので 
+    # WerbhookHandler じゃないハンドラを実装してそっちからも呼び出す
     driver = Reservator.launch()
     current_url, properties = driver.list_available_schedules()
     messages = driver.format_available_schedule(properties, current_url)
