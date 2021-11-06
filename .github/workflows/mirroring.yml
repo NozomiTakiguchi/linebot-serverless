@@ -18,7 +18,7 @@ jobs:
       - uses: pixta-dev/repository-mirroring-action@v1
         with:
           target_repo_url:
-            $CODECOMMIT_REPO_SSH_URL
+            ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/linebot-serverless
           ssh_private_key:
             $CODECOMMIT_SSH_PRIVATE_KEY
           ssh_username:
