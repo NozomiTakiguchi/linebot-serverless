@@ -18,11 +18,11 @@ jobs:
       - uses: pixta-dev/repository-mirroring-action@v1
         with:
           target_repo_url:
-            ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/linebot-serverless
+            ${{env.CODECOMMIT_REPO_SSH_URL}}
           ssh_private_key:
-            $CODECOMMIT_SSH_PRIVATE_KEY
+            ${{env.CODECOMMIT_SSH_PRIVATE_KEY}}
           ssh_username:
-            $CODECOMMIT_SSH_KEY_ID
+            ${{env.CODECOMMIT_SSH_KEY_ID}}
       # - name: push to aws codecommit
       #   shell: bash
       #   run: |
