@@ -13,7 +13,8 @@ jobs:
   to_codecommit:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v1
+      - name: checkout
+        uses: actions/checkout@v1
       # - uses: pixta-dev/repository-mirroring-action@v1
       #   with:
       #     target_repo_url:
@@ -22,6 +23,7 @@ jobs:
       #       $CODECOMMIT_SSH_PRIVATE_KEY
       #     ssh_username:
       #       $CODECOMMIT_SSH_KEY_ID
+      - name: push to aws codecommit
         shell: bash
         run: |
           mkdir ~/.ssh
