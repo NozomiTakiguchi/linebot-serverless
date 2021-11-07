@@ -1,50 +1,27 @@
 // Docker in Docker 設定を参照 : https://github.com/microsoft/vscode-dev-containers/blob/main/containers/docker-in-docker/.devcontainer/devcontainer.json
 {
 	"name": "docker-for-aws-sam-cli",
-
-	// Sets the run context to one level up instead of the .devcontainer folder.
 	"context": "..",
-
 	"runArgs": [
 		"--init",
 		"--privileged"
 	],
-
 	"remoteEnv": {
 		"PYTHONPATH": "${localEnv:PYTHONPATH}:/workspaces/linebot-serverless/layer"
 	},
-
 	"mounts": [
 		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
 		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/home/vscode/.aws,type=bind,readonly"
 	],
-
-	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
 	"dockerFile": "../Dockerfile",
-
-	// Set *default* container specific settings.json values on container create.
 	"settings": {
 		"python.pythonPath": "/usr/local/bin/python"
 	},
-	
-	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"amazonwebservices.aws-toolkit-vscode",
 		"ms-python.python"
 	],
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Uncomment the next line to run commands after the container is created - for example installing curl.
+	// requirements.freeze.txt is used for sam build
 	"postCreateCommand": "sudo chown vscode /var/run/docker.sock; pip freeze > ~/requirements.freeze.txt",
-
-	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
-	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
-
-	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
-	// "mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
-
-	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"
 }
