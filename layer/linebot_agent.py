@@ -1,4 +1,4 @@
-import os, http.server as http_server, socketserver
+import os, json, http.server as http_server, socketserver
 import settings # load dotenv
 from scraping import Reservator
 from linebot import LineBotApi, WebhookHandler
@@ -57,10 +57,12 @@ def lambda_handler(event, context):
     # except InvalidSignatureError as e:
     #     print(e)
     return {
-        "isBase64Encoded": False,
         "statusCode": 200,
-        "headers": {},
-        "body": "Success"
+        "body": json.dumps(
+            {
+                "message": 'Test Lambda',
+            }
+        ),
     }
 
 @handler.add(MessageEvent, TextMessage)
