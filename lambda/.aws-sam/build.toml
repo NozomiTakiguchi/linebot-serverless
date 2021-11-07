@@ -10,9 +10,9 @@ packagetype = "Zip"
 functions = ["ReservatorFunction"]
 
 [layer_build_definitions]
-[layer_build_definitions.8f72d97c-2d01-4625-b154-3f6da904210d]
+[layer_build_definitions.5126bdd0-8d69-4532-b394-4db5cd8ef09e]
 layer_name = "LineBotCommonLayer"
-codeuri = "/home/tackie0122/workspace/linebot-serverless/layer"
+codeuri = "/home/tackie0122/workspace/linebot-serverless/lambda/$PWD"
 build_method = "python3.8"
 compatible_runtimes = ["python3.8"]
 architecture = "x86_64"

@@ -28,6 +28,7 @@
 * sam init / sam build 実行
     * sam init にて PackageType = Zip にすると、ホストでは正常に local invoke できるが devcontainer 上では no module named app によりコケる (原因は現時点で不明)
     * PackageType = Image にして、 Layer を利用すると同じようにコケるため、現時点では sam build -> local invoke は wsl 上で行う (devcontainer へのファイルマウント？の仕方が分からない)
+    * Dockerfile で Layer で使用するディレクトリを PYTHONPATH に追加し、開発時にも参照できるようにする
 * `sam local start-lambda --container-host host.docker.internal` で localhost:3001 にエンドポイントが立つ
 * terminal をもう一つ開いて、 `aws lambda invoke --function-name SomeFunctionName --endpoint http://localhost:3001/ output.txt`
 

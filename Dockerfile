@@ -8,7 +8,6 @@ ARG SAMCLI_FILE=aws-sam-cli-linux-x86_64
 ARG DEFAULT_SAMCLI_VERSION=v1.33.0
 # https://github.com/aws/aws-sam-cli/releases/latest から取得 (作成時 latest = v1.33.0)
 ARG DEFAULT_SAMCLI_SHA256=3fcdf752ab30e6355087bcfa451a7d3ca6eb23445b893ecfcd0dea4fab166382
-
 RUN groupadd --gid ${GID} ${USERNAME} \
     # ホームディレクトリ作成, ログインシェルを /bin/sh -> /bin/bash に変更
     && useradd --uid ${UID} --gid ${GID} -m ${USERNAME} -s /bin/bash \
