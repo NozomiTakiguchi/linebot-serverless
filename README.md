@@ -30,11 +30,16 @@
     * PackageType = Image にして、 Layer を利用すると同じようにコケるため、現時点では sam build -> local invoke は wsl 上で行う (devcontainer へのファイルマウント？の仕方が分からない)
     * Dockerfile で Layer で使用するディレクトリを PYTHONPATH に追加し、開発時にも参照できるようにする
     * /workspaces/linebot-serverless/lambda で `sam build --manifest ~/requirements.freeze.txt`
-    * ホストの wsl 上で `sam local invoke --env-vars ~/workspace/linebot-serverless/.env.json`
+    * ホストの wsl 上で /workspaces/linebot-serverless/lambda で  `sam local invoke --env-vars ~/workspace/linebot-serverless/.env.json`
 * `sam local start-lambda --container-host host.docker.internal` で localhost:3001 にエンドポイントが立つ
     * 現時点で CHANNEL_ACCESS_TOKEN 周りが keyerror になる
     * settings.py の読み方を工夫する必要がある
 * terminal をもう一つ開いて、 `aws lambda invoke --function-name SomeFunctionName --endpoint http://localhost:3001/ output.txt`
 
 ## linebot からのリクエスト
-* ngrok の利用
+* sam build までは↑と同じ
+* ホストの wsl 上で /workspace/linebot-serverless/lambda で `sam local start-api --env-vars ~/workspace/linebot-serverless/.env.json`
+* ngrok で `ngrok http 3000`
+* line messaging api の webhookurl に `${生成された url}/${func: 今はテンプレートのままの hello}` を設定
+    * build した後の最初のリクエスト受信で building image に時間がかかり token が expiring してしまう。仕方ない？
+    * chromedriver executable may have wrong permissions となり 502 が返ってくる

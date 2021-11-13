@@ -48,14 +48,14 @@ def get_xline_signature(headers):
     return signature
 
 #aws lambda
-def lambda_handler(event, context):
+def bot_lambda_handler(event, context):
     signature = get_xline_signature(event['headers'])
     req_body = event['body']
 
-    # try:
-    #     handler.handle(req_body, signature)
-    # except InvalidSignatureError as e:
-    #     print(e)
+    try:
+        handler.handle(req_body, signature)
+    except InvalidSignatureError as e:
+        print(e)
     return {
         "statusCode": 200,
         "body": json.dumps(
