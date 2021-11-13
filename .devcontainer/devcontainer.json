@@ -4,14 +4,16 @@
 	"context": "..",
 	"runArgs": [
 		"--init",
-		"--privileged"
+		"--privileged",
+		"--env-file", "devcontainer.env"
 	],
 	"remoteEnv": {
 		"PYTHONPATH": "${localEnv:PYTHONPATH}:/workspaces/linebot-serverless/layer"
 	},
 	"mounts": [
 		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
-		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/home/vscode/.aws,type=bind,readonly"
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/home/vscode/.aws,type=bind,readonly",
+		//"source=${localEnv:HOME}${localEnv:USERPROFILE}/workspace/linebot-serverless/lambda/.aws-sam/build,target=/workspaces/linebot-serverless/lambda/.aws-sam/build,type=bind"
 	],
 	"dockerFile": "../Dockerfile",
 	"settings": {

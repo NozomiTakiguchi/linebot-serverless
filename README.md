@@ -46,3 +46,4 @@
         * .aws-sam/ に格納される chromedriver の権限を 755 にする
         * ただし、unexpectedly exit で怒られる
             * 多分ローカルの chrome とのバージョン齟齬とかだと思うので、やっぱり devcontainer 上で start api したい... (ファイルマウントの仕方が分からない)
+            * template.yaml の CodeUri を正しく設定すれば治る？？
