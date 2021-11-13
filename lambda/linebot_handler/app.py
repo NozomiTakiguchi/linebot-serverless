@@ -1,15 +1,14 @@
 import json
-from test import Test
+from test_handler import test_handler
 
 
 def lambda_handler(event, context):
 
-    t = Test()
     return {
         "statusCode": 200,
         "body": json.dumps(
             {
-                "message": t.message,
+                "message": test_handler(),
             }
         ),
     }

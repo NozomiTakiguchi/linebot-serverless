@@ -4,6 +4,14 @@ Description: >
   lambda
   Sample SAM Template for lambda
 
+Params:
+  CHANNEL_ACCESS_TOKEN:
+    type: String
+  CHANNEL_SECRET:
+    type: String
+  PORT:
+    type: String
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -22,6 +30,11 @@ Resources:
   ReservatorFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
+      Environment:
+        Variables:
+          CHANNEL_ACCESS_TOKEN: !Ref CHANNEL_ACCESS_TOKEN
+          CHANNEL_SECRET: !Ref CHANNEL_SECRET
+          PORT: !Ref PORT
       CodeUri: linebot_handler/
       Handler: app.lambda_handler
       Runtime: python3.8

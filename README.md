@@ -30,6 +30,7 @@
     * PackageType = Image にして、 Layer を利用すると同じようにコケるため、現時点では sam build -> local invoke は wsl 上で行う (devcontainer へのファイルマウント？の仕方が分からない)
     * Dockerfile で Layer で使用するディレクトリを PYTHONPATH に追加し、開発時にも参照できるようにする
     * /workspaces/linebot-serverless/lambda で `sam build --manifest ~/requirements.freeze.txt`
+    * ホストの wsl 上で `sam local invoke --env-vars ~/workspace/linebot-serverless/.env.json`
 * `sam local start-lambda --container-host host.docker.internal` で localhost:3001 にエンドポイントが立つ
     * 現時点で CHANNEL_ACCESS_TOKEN 周りが keyerror になる
     * settings.py の読み方を工夫する必要がある
