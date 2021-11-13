@@ -43,3 +43,6 @@
 * line messaging api の webhookurl に `${生成された url}/${func: 今はテンプレートのままの hello}` を設定
     * build した後の最初のリクエスト受信で building image に時間がかかり token が expiring してしまう。仕方ない？
     * chromedriver executable may have wrong permissions となり 502 が返ってくる
+        * .aws-sam/ に格納される chromedriver の権限を 755 にする
+        * ただし、unexpectedly exit で怒られる
+            * 多分ローカルの chrome とのバージョン齟齬とかだと思うので、やっぱり devcontainer 上で start api したい... (ファイルマウントの仕方が分からない)
