@@ -24,6 +24,6 @@
 		"ms-python.python"
 	],
 	// requirements.freeze.txt is used for sam build
-	"postCreateCommand": "sudo chown vscode /var/run/docker.sock; pip freeze > ~/requirements.freeze.txt; sudo cp /usr/bin/google-chrome /usr/bin/google-chrome-stable /workspaces/linebot-serverless/lambda/layer/binary/",
+	"postCreateCommand": "sudo chown vscode /var/run/docker.sock; pip freeze > /workspaces/linebot-serverless/layer/python/requirements.txt; sudo cp /usr/bin/google-chrome /usr/bin/google-chrome-stable /workspaces/linebot-serverless/layer/binary/",
 	"remoteUser": "vscode"
 }

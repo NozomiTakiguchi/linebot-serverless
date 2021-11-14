@@ -2,6 +2,15 @@
 *.env*
 !*sample.json
 
+# chrome binary (layer/binary/google-chrom will be ignored)
+*bin/
+
+# python dependencies for python layer
+layer/python/requirements.txt
+
+# deploy script using some secrets
+lambda/deploy.sh
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
