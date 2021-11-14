@@ -30,6 +30,8 @@
     * PackageType = Image にして、 Layer を利用すると同じようにコケるため、現時点では sam build -> local invoke は wsl 上で行う (devcontainer へのファイルマウント？の仕方が分からない)
     * Dockerfile で Layer で使用するディレクトリを PYTHONPATH に追加し、開発時にも参照できるようにする
     * /workspaces/linebot-serverless/lambda で `sam build --manifest ~/requirements.freeze.txt`
+    * Chrome Binary 用のレイヤも作成したが、↑のように manifest 指定するとすべてのアーティファクト作成で↑のマニフェストを見てしまう
+        * Chrome Binary のレイヤ作成時に makefile を参照させたいため、 python レイヤのディレクトリに requirements.txt を配置するように devcontainer.json を修正 & `sam build` のみを実行
     * ホストの wsl 上で /workspaces/linebot-serverless/lambda で  `sam local invoke --env-vars ~/workspace/linebot-serverless/.env.json`
 * `sam local start-lambda --container-host host.docker.internal` で localhost:3001 にエンドポイントが立つ
     * 現時点で CHANNEL_ACCESS_TOKEN 周りが keyerror になる
@@ -47,3 +49,11 @@
         * ただし、unexpectedly exit で怒られる
             * 多分ローカルの chrome とのバージョン齟齬とかだと思うので、やっぱり devcontainer 上で start api したい... (ファイルマウントの仕方が分からない)
             * template.yaml の CodeUri を正しく設定すれば治る？？
+
+
+## deploy
+* sam deploy --guided parameter-overrides する
+* Lambda は正常にデプロイされたが、シークレットがうまくオーバーライドできていない気がする
+* また、API Gateway のエンドポイントを Line Messaging API の webhook に設定したところ、リクエストハンドリングで以下のエラーが出る
+    * `[ERROR] WebDriverException: Message: Service chromedriver unexpectedly exited. Status code was: 127`
+    * ChromBinary のレイヤがただしくつくれていないきがする　

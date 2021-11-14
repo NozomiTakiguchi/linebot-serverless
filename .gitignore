@@ -8,8 +8,10 @@
 # python dependencies for python layer
 layer/python/requirements.txt
 
-# deploy script using some secrets
+# deploy script and config using some secrets
 lambda/deploy.sh
+lambda/samconfig.toml
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
