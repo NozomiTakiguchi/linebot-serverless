@@ -49,6 +49,7 @@ def get_xline_signature(headers):
 
 #aws lambda
 def bot_lambda_handler(event, context):
+    print(os.environ['CHANNEL_ACCESS_TOKEN'])
     signature = get_xline_signature(event['headers'])
     req_body = event['body']
 

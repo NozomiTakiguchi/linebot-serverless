@@ -4,13 +4,13 @@ Description: >
   lambda
   Sample SAM Template for lambda
 
-# Params:
-#   CHANNEL_ACCESS_TOKEN:
-#     type: String
-#   CHANNEL_SECRET:
-#     type: String
-#   PORT:
-#     type: String
+Parameters:
+  CHANNEL_ACCESS_TOKEN:
+    type: String
+  CHANNEL_SECRET:
+    type: String
+  PORT:
+    type: String
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -43,9 +43,8 @@ Resources:
     Properties:
       Environment:
         Variables:
-          CHANNEL_ACCESS_TOKEN: CHANNEL_ACCESS_TOKEN
-          CHANNEL_SECRET: CHANNEL_SECRET
-          PORT: PORT
+          CHANNEL_ACCESS_TOKEN: !Ref CHANNEL_ACCESS_TOKEN
+          CHANNEL_SECRET: !Ref CHANNEL_SECRET
       CodeUri: linebot_handler/
       Handler: app.lambda_handler
       Runtime: python3.8
